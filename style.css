@@ -1,0 +1,19 @@
+/* [Previous CSS from original file...] */
+
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* FIX (CR-002): Using localized and optimized background image */
+    background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.5)), url('assets/images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--snow-white);
+}
+
+/* [...Rest of the CSS from original file] */
