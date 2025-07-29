@@ -1,4 +1,37 @@
-/* [Previous CSS from original file...] */
+:root {
+    --celestial-blue: #A7C7E7;
+    --misty-rose: #F2D2D2;
+    --serene-green: #D4E2D4;
+    --lavender-blush: #FDEBF7;
+    --powder-white: #FFFFFF;
+
+    /* Semantic color names */
+    --background-color: var(--powder-white);
+    --text-color: #5d5d5d;
+    --accent-color: var(--celestial-blue);
+    --header-bg-color: var(--misty-rose);
+    --nav-active-color: var(--serene-green);
+    --link-color: var(--celestial-blue);
+    --link-hover-color: var(--misty-rose);
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    margin-top: 0;
+    color: #333;
+}
 
 /* --- Hero Section --- */
 .hero {
@@ -8,12 +41,143 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* FIX (CR-002): Using localized and optimized background image */
-    background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.5)), url('assets/images/hero-bg.jpg');
+    background: linear-gradient(180deg, var(--misty-rose) 0%, var(--lavender-blush) 100%);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    color: var(--snow-white);
+    color: var(--text-color);
 }
 
-/* [...Rest of the CSS from original file] */
+.hero-title {
+    font-size: 5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* --- Footer --- */
+footer {
+    padding: 2rem;
+    text-align: center;
+    background-color: var(--lavender-blush);
+    color: var(--text-color);
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+footer.visible {
+    opacity: 1;
+}
+
+/* --- Navigation Enhancements --- */
+.spiritual-compass {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 100;
+}
+
+.compass-point {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--misty-rose);
+    border: 2px solid var(--serene-green);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+.compass-point:hover {
+    background-color: var(--serene-green);
+    transform: scale(1.2);
+}
+
+.compass-point.active {
+    background-color: var(--serene-green);
+    border-color: var(--celestial-blue);
+    transform: scale(1.5);
+}
+
+.compass-point::after {
+    content: attr(data-name);
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--powder-white);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.compass-point:hover::after {
+    opacity: 1;
+    visibility: visible;
+    right: 40px;
+}
+
+.dham-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.dham-image img {
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.dham-image img:hover {
+    transform: scale(1.05);
+}
+
+.dham-title {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.dham-deity {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.dham-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* --- Dham Section Enhancements --- */
+.dham-section {
+    padding: 6rem 2rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    background-color: var(--powder-white);
+    margin: 2rem auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 1200px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-top: 0;
+    max-width: 700px;
+    font-weight: 300;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}

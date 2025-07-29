@@ -51,4 +51,38 @@ document.addEventListener('DOMContentLoaded', () => {
             section.classList.add('visible');
         });
     }
+
+    // Parallax effect for the hero section
+    const hero = document.querySelector('.hero');
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.pageYOffset;
+        hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+    });
+
+    // Smooth scrolling for navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Animate footer into view
+    const footer = document.querySelector('footer');
+    const footerObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                footer.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    footerObserver.observe(footer);
 });
