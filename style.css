@@ -1,13 +1,13 @@
 :root {
-    --celestial-blue: #A7C7E7;
-    --misty-rose: #F2D2D2;
-    --serene-green: #D4E2D4;
-    --lavender-blush: #FDEBF7;
-    --powder-white: #FFFFFF;
+    --celestial-blue: #B5D6E6; /* Lighter blue */
+    --misty-rose: #FADADD; /* Soft pink */
+    --serene-green: #DDEFE0; /* Pale green */
+    --lavender-blush: #F3E8F3; /* Gentle lavender */
+    --powder-white: #FCFCFC; /* Off-white */
 
     /* Semantic color names */
     --background-color: var(--powder-white);
-    --text-color: #5d5d5d;
+    --text-color: #6c757d; /* Softer grey */
     --accent-color: var(--celestial-blue);
     --header-bg-color: var(--misty-rose);
     --nav-active-color: var(--serene-green);
@@ -28,9 +28,9 @@ body {
 
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
+    font-weight: 400; /* Lighter weight */
     margin-top: 0;
-    color: #333;
+    color: #495057; /* Darker grey */
 }
 
 /* --- Hero Section --- */
@@ -42,10 +42,47 @@ h1, h2, h3 {
     align-items: center;
     text-align: center;
     background: linear-gradient(180deg, var(--misty-rose) 0%, var(--lavender-blush) 100%);
-    background-size: cover;
+    background-size: 150% 150%;
     background-position: center;
-    background-attachment: fixed;
     color: var(--text-color);
+    animation: slow-pan 20s ease-in-out infinite alternate;
+}
+
+@keyframes slow-pan {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: 100% 100%;
+    }
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
+
+.scroll-indicator span {
+    display: block;
+    width: 2px;
+    height: 30px;
+    background-color: var(--text-color);
 }
 
 .hero-title {
@@ -80,6 +117,18 @@ footer.visible {
     flex-direction: column;
     gap: 20px;
     z-index: 100;
+}
+
+.compass-indicator {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--serene-green);
+    border: 2px solid var(--celestial-blue);
+    transition: top 0.5s ease-in-out;
+    top: 0;
+    left: 0;
 }
 
 .compass-point {
@@ -159,6 +208,13 @@ footer.visible {
 .dham-description {
     font-size: 1.1rem;
     line-height: 1.8;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.dham-content:hover .dham-description {
+    max-height: 200px; /* Adjust as needed */
 }
 
 /* --- Dham Section Enhancements --- */
@@ -166,12 +222,17 @@ footer.visible {
     padding: 6rem 2rem;
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease-in-out;
     background-color: var(--powder-white);
     margin: 2rem auto;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     max-width: 1200px;
+}
+
+.dham-section:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    transform: translateY(20px);
 }
 
 .dham-section.visible {
