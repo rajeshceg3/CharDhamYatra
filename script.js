@@ -32,10 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     entry.target.classList.add('visible');
                 
                     // Update active state of compass nav
-                    navLinks.forEach(link => {
+                    const indicator = document.querySelector('.compass-indicator');
+                    navLinks.forEach((link, index) => {
                         link.classList.remove('active');
                         if (link.getAttribute('href') === `#${targetId}`) {
                             link.classList.add('active');
+                            indicator.style.top = `${index * 36}px`; // 16px height + 20px gap
                         }
                     });
                 }
@@ -52,12 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Parallax effect for the hero section
-    const hero = document.querySelector('.hero');
-    window.addEventListener('scroll', () => {
-        const scrollPosition = window.pageYOffset;
-        hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
-    });
 
     // Smooth scrolling for navigation links
     navLinks.forEach(link => {
