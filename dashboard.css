@@ -1,0 +1,88 @@
+/* --- Dashboard Section --- */
+.dashboard-section {
+    padding: 4rem 2rem;
+    background-color: var(--lavender-blush);
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #495057;
+    margin-bottom: 2rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-card {
+    background-color: var(--powder-white);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--serene-green);
+    padding-bottom: 0.5rem;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+}
+
+.info-item .label {
+    font-weight: 700;
+    color: #495057;
+}
+
+.info-item .value {
+    color: var(--text-color);
+}
+
+.status-open {
+    color: #28a745; /* Green */
+    font-weight: 700;
+}
+
+.status-closed {
+    color: #dc3545; /* Red */
+    font-weight: 700;
+}
+
+.route-clear {
+    color: #28a745; /* Green */
+}
+
+.route-advisory {
+    color: #ffc107; /* Orange */
+}
+
+.weather-icon {
+    font-size: 1.5rem;
+    margin-right: 5px;
+}
