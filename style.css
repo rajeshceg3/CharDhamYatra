@@ -18,6 +18,7 @@
 body {
     font-family: 'Lato', sans-serif;
     background-color: var(--background-color);
+    background-image: url('assets/images/background-texture.png');
     color: var(--text-color);
     margin: 0;
     padding: 0;
@@ -41,21 +42,14 @@ h1, h2, h3 {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(180deg, var(--misty-rose) 0%, var(--lavender-blush) 100%);
-    background-size: 150% 150%;
+    color: var(--powder-white);
+    background-image: url('assets/images/hero.jpg');
+    background-size: cover;
     background-position: center;
-    color: var(--text-color);
-    animation: slow-pan 20s ease-in-out infinite alternate;
+    background-attachment: fixed; /* This creates the parallax effect */
 }
 
-@keyframes slow-pan {
-    from {
-        background-position: 0% 0%;
-    }
-    to {
-        background-position: 100% 100%;
-    }
-}
+/* The slow-pan keyframes are no longer needed */
 
 .scroll-indicator {
     position: absolute;
@@ -82,7 +76,7 @@ h1, h2, h3 {
     display: block;
     width: 2px;
     height: 30px;
-    background-color: var(--text-color);
+    background-color: var(--powder-white);
 }
 
 .hero-title {
@@ -90,7 +84,7 @@ h1, h2, h3 {
     font-weight: 700;
     margin-bottom: 1rem;
     letter-spacing: 2px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Enhanced shadow for readability */
 }
 
 /* --- Footer --- */
@@ -126,7 +120,7 @@ footer.visible {
     border-radius: 50%;
     background-color: var(--serene-green);
     border: 2px solid var(--celestial-blue);
-    transition: top 0.5s ease-in-out;
+    transition: top 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     top: 0;
     left: 0;
 }
@@ -144,6 +138,7 @@ footer.visible {
 
 .compass-point:hover {
     background-color: var(--serene-green);
+    border-color: var(--celestial-blue);
     transform: scale(1.2);
 }
 
@@ -151,6 +146,7 @@ footer.visible {
     background-color: var(--serene-green);
     border-color: var(--celestial-blue);
     transform: scale(1.5);
+    box-shadow: 0 0 12px 3px var(--serene-green);
 }
 
 .compass-point::after {
@@ -182,14 +178,28 @@ footer.visible {
     gap: 4rem;
 }
 
-.dham-image img {
+.dham-image {
+    overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.dham-image img {
     transition: transform 0.3s ease-in-out;
+    animation: ken-burns 20s ease-in-out infinite alternate;
 }
 
 .dham-image img:hover {
     transform: scale(1.05);
+}
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.1) translate(-2%, -2%);
+  }
 }
 
 .dham-title {
@@ -231,8 +241,8 @@ footer.visible {
 }
 
 .dham-section:hover {
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-    transform: translateY(20px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    transform: translateY(-10px);
 }
 
 .dham-section.visible {
