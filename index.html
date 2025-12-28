@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FIX (H-002): Implement Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        img-src 'self' https://images.unsplash.com;
+        style-src 'self' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        script-src 'self';
+    ">
     <title>The Char Dham</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +32,7 @@
                 <p class="prose">The mountains do not call; they wait. And when you finally arrive, you realize they have been waiting for you since before you were born.</p>
                 <h1 class="title">The Journey Within</h1>
             </div>
-            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80');"></div>
+            <div class="background-image"></div>
         </section>
 
         <section class="chapter" id="yamunotri">
@@ -32,7 +40,7 @@
                 <p class="prose">The air here is thin, tasting of cold stone and ancient ice. It is not a destination, but a beginning—where the river is still a child, boisterous and untamed.</p>
                 <h2 class="location">Yamunotri</h2>
             </div>
-            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&q=80');"></div>
+            <div class="background-image"></div>
         </section>
 
         <section class="chapter" id="gangotri">
@@ -40,7 +48,7 @@
                 <p class="prose">There is a silence in the roar of the river. It is the sound of the earth speaking to the sky. Here, the water carries the weight of legends, yet feels as light as memory.</p>
                 <h2 class="location">Gangotri</h2>
             </div>
-            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1593181625554-1d3639d57a43?auto=format&fit=crop&q=80');"></div>
+            <div class="background-image"></div>
         </section>
 
         <section class="chapter" id="kedarnath">
@@ -48,7 +56,7 @@
                 <p class="prose">To walk here is to walk into the spine of the world. The peaks rise like white giants, indifferent and magnificent. In their shadow, the temple stands—a stone prayer that has weathered storms for centuries.</p>
                 <h2 class="location">Kedarnath</h2>
             </div>
-            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1598555898852-5a242857022d?auto=format&fit=crop&q=80');"></div>
+            <div class="background-image"></div>
         </section>
 
         <section class="chapter" id="badrinath">
@@ -56,7 +64,7 @@
                 <p class="prose">The valley opens like a cupped hand offering light. It is the exhale after the climb. The colors are warmer here, the wind softer, as if the mountains themselves have decided to be kind.</p>
                 <h2 class="location">Badrinath</h2>
             </div>
-            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&q=80');"></div>
+            <div class="background-image"></div>
         </section>
 
         <footer class="chapter footer">
