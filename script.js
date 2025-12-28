@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const chapters = document.querySelectorAll('.chapter');
+    const navLinks = document.querySelectorAll('.compass-point');
 
     const observerOptions = {
         root: null,
@@ -21,6 +22,35 @@ document.addEventListener('DOMContentLoaded', () => {
     chapters.forEach(chapter => {
         observer.observe(chapter);
     });
+
+    if ('IntersectionObserver' in window) {
+        // FIX (M-001): IntersectionObserver logic hardened for more precise activation.
+        // This makes the active state change when a section's center crosses the viewport's center.
+        const navObserverOptions = {
+            root: null,
+            rootMargin: '-50% 0px -50% 0px',
+            threshold: 0
+        };
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, navObserverOptions);
+
+        chapters.forEach(chapter => {
+            navObserver.observe(chapter);
+        });
+    }
 
     // Parallax Effect
     window.addEventListener('scroll', () => {

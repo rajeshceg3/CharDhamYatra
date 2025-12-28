@@ -132,3 +132,35 @@ body {
         font-size: 1.25rem;
     }
 }
+
+/* Navigation Compass */
+.compass {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 10;
+}
+
+.compass-point {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    opacity: 0.3;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.compass-point:hover {
+    opacity: 0.7;
+}
+
+.compass-point.active {
+    opacity: 1;
+    transform: scale(1.5);
+}
