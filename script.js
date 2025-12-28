@@ -1,84 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Phase 1: Graceful loader fade-out
-    const loader = document.querySelector('.loader');
-    // The loader is hidden by CSS/noscript if JS is off.
-    // If JS is on, we proceed with the fade-out for a smooth entry.
-    window.setTimeout(() => {
-        if (loader) {
-            loader.classList.add('hidden');
-        }
-        document.body.classList.add('loaded');
-    }, 500); // Reduced timeout for faster perceived load
+    const chapters = document.querySelectorAll('.chapter');
 
-    // Phase 2: Navigation and section animation observer
-    const sections = document.querySelectorAll('.dham-section, .hero');
-    const navLinks = document.querySelectorAll('.compass-point');
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3
+    };
 
-    if ('IntersectionObserver' in window) {
-        // FIX (M-001): IntersectionObserver logic hardened for more precise activation.
-        // This makes the active state change when a section's center crosses the viewport's center.
-        const observerOptions = {
-            root: null,
-            rootMargin: '-50% 0px -50% 0px',
-            threshold: 0
-        };
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            } else {
+                // Optional: remove class to re-trigger animation on scroll up
+                // entry.target.classList.remove('visible');
+            }
+        });
+    }, observerOptions);
 
-        const sectionObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                const targetId = entry.target.id;
+    chapters.forEach(chapter => {
+        observer.observe(chapter);
+    });
 
-                // Animate section into view
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                
-                    // Update active state of compass nav
-                    const indicator = document.querySelector('.compass-indicator');
-                    navLinks.forEach((link, index) => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${targetId}`) {
-                            link.classList.add('active');
-                            indicator.style.top = `${index * 36}px`; // 16px height + 20px gap
-                        }
-                    });
+    // Parallax Effect
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+
+        chapters.forEach(chapter => {
+            const bg = chapter.querySelector('.background-image');
+            if (bg) {
+                const speed = 0.2;
+                const rect = chapter.getBoundingClientRect();
+                // Only animate if visible or close to viewport
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const offset = (window.innerHeight - rect.top) * speed;
+                    bg.style.transform = `translateY(${offset}px)`;
                 }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            sectionObserver.observe(section);
-        });
-    } else {
-        // Fallback for very old browsers: just show everything.
-        sections.forEach(section => {
-            section.classList.add('visible');
-        });
-    }
-
-
-    // Smooth scrolling for navigation links
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
             }
         });
     });
-
-    // Animate footer into view
-    const footer = document.querySelector('footer');
-    const footerObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                footer.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    footerObserver.observe(footer);
 });
