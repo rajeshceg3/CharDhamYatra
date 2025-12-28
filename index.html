@@ -3,135 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- FIX (H-002): Implement Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self'; 
-        img-src 'self'; 
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-        font-src 'self' https://fonts.gstatic.com;
-        script-src 'self';
-        frame-ancestors 'none';">
-
-    <title>Char Dham Yatra: The Journey Within</title>
-
+    <title>The Char Dham</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="dashboard.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- FIX (CR-001): Graceful degradation for no-JS environments -->
-    <noscript>
-        <style>
-            .loader { display: none; }
-            .dham-section, .hero { opacity: 1; transform: none; }
-        </style>
-    </noscript>
-
-    <!-- The script is deferred to prevent render-blocking -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <script src="script.js" defer></script>
-    <script src="dashboard.js" defer></script>
 </head>
 <body>
+    <div class="scroll-container">
+        <section class="chapter hero" id="arrival">
+            <div class="content-wrapper">
+                <p class="prose">The mountains do not call; they wait. And when you finally arrive, you realize they have been waiting for you since before you were born.</p>
+                <h1 class="title">The Journey Within</h1>
+            </div>
+            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80');"></div>
+        </section>
 
-    <div class="loader" role="status" aria-label="Loading page">
-        <div class="loader-symbol" aria-hidden="true">ॐ</div>
+        <section class="chapter" id="yamunotri">
+            <div class="content-wrapper">
+                <p class="prose">The air here is thin, tasting of cold stone and ancient ice. It is not a destination, but a beginning—where the river is still a child, boisterous and untamed.</p>
+                <h2 class="location">Yamunotri</h2>
+            </div>
+            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&q=80');"></div>
+        </section>
+
+        <section class="chapter" id="gangotri">
+            <div class="content-wrapper">
+                <p class="prose">There is a silence in the roar of the river. It is the sound of the earth speaking to the sky. Here, the water carries the weight of legends, yet feels as light as memory.</p>
+                <h2 class="location">Gangotri</h2>
+            </div>
+            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1593181625554-1d3639d57a43?auto=format&fit=crop&q=80');"></div>
+        </section>
+
+        <section class="chapter" id="kedarnath">
+            <div class="content-wrapper">
+                <p class="prose">To walk here is to walk into the spine of the world. The peaks rise like white giants, indifferent and magnificent. In their shadow, the temple stands—a stone prayer that has weathered storms for centuries.</p>
+                <h2 class="location">Kedarnath</h2>
+            </div>
+            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1598555898852-5a242857022d?auto=format&fit=crop&q=80');"></div>
+        </section>
+
+        <section class="chapter" id="badrinath">
+            <div class="content-wrapper">
+                <p class="prose">The valley opens like a cupped hand offering light. It is the exhale after the climb. The colors are warmer here, the wind softer, as if the mountains themselves have decided to be kind.</p>
+                <h2 class="location">Badrinath</h2>
+            </div>
+            <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&q=80');"></div>
+        </section>
+
+        <footer class="chapter footer">
+            <div class="content-wrapper">
+                <p class="prose">You leave, but a part of you remains. Quiet. Still.</p>
+            </div>
+        </footer>
     </div>
-
-    <nav class="spiritual-compass" aria-label="Main pilgrimage navigation">
-        <div class="compass-indicator"></div>
-        <!-- FIX (H-001): Added aria-label for screen reader accessibility -->
-        <a href="#hero" class="compass-point active" data-name="The Journey" aria-label="Go to The Journey section"></a>
-        <a href="#yamunotri" class="compass-point" data-name="Yamunotri" aria-label="Go to Yamunotri section"></a>
-        <a href="#gangotri" class="compass-point" data-name="Gangotri" aria-label="Go to Gangotri section"></a>
-        <a href="#kedarnath" class="compass-point" data-name="Kedarnath" aria-label="Go to Kedarnath section"></a>
-        <a href="#badrinath" class="compass-point" data-name="Badrinath" aria-label="Go to Badrinath section"></a>
-    </nav>
-    
-    <main>
-        <!-- FIX (CR-002): Localized background image defined in CSS -->
-        <header id="hero" class="hero">
-            <h1 class="hero-title">Char Dham Yatra</h1>
-            <p class="hero-subtitle">A journey not of miles, but of transcendence. Four abodes, one path to the self, etched in the heart of the Himalayas.</p>
-            <div class="scroll-indicator">
-                <span></span>
-            </div>
-        </header>
-
-        <section id="dashboard" class="dashboard-section">
-            <h2 class="section-title">Operational Yatra Dashboard</h2>
-            <div class="dashboard-grid">
-                <!-- Dashboard cards will be populated by dashboard.js -->
-            </div>
-        </section>
-
-        <section id="yamunotri" class="dham-section">
-            <div class="dham-content">
-                <div class="dham-image">
-                    <!-- FIX (CR-002, H-001): Localized image with descriptive alt text -->
-                    <img src="assets/images/yamunotri.jpg" alt="The Yamunotri temple, a stone structure nestled in a steep, rocky Himalayan gorge.">
-                </div>
-                <div class="dham-text">
-                    <h2 class="dham-title">Yamunotri</h2>
-                    <p class="dham-deity">Source of the Yamuna River</p>
-                    <p class="dham-description">
-                        The pilgrimage begins at the source. Here, at the westernmost shrine, the journey is one of physical effort and profound reward. The trek to the temple, nestled in a narrow gorge, is a meditation in motion.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="gangotri" class="dham-section">
-            <div class="dham-content">
-                <div class="dham-image">
-                    <img src="assets/images/gangotri.jpg" alt="The white granite Gangotri temple on the banks of the rushing Bhagirathi river, with green hills in the background.">
-                </div>
-                <div class="dham-text">
-                    <h2 class="dham-title">Gangotri</h2>
-                    <p class="dham-deity">Origin of the Sacred Ganga</p>
-                    <p class="dham-description">
-                        The seat of the goddess Ganga, this is where the most revered river in Hinduism begins its epic journey. The air here is thin, but the spirit is dense, filled with the sound of the roaring river and quiet prayer.
-                    </p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="kedarnath" class="dham-section">
-            <div class="dham-content">
-                <div class="dham-image">
-                    <img src="assets/images/kedarnath.jpg" alt="The ancient stone temple of Kedarnath stands majestically in a valley with immense, snow-covered mountains towering behind it.">
-                </div>
-                <div class="dham-text">
-                    <h2 class="dham-title">Kedarnath</h2>
-                    <p class="dham-deity">The Abode of Lord Shiva</p>
-                    <p class="dham-description">
-                        Set against a dramatic backdrop of the highest peaks, Kedarnath is a place of primal power. Reaching this temple requires a formidable trek, mirroring the inner process of shedding the ego to stand before the divine.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="badrinath" class="dham-section">
-            <div class="dham-content">
-                <div class="dham-image">
-                    <img src="assets/images/badrinath.jpg" alt="The brightly colored Badrinath temple sits in a valley with the sharp, snow-dusted Neelkanth peak visible in the background.">
-                </div>
-                <div class="dham-text">
-                    <h2 class="dham-title">Badrinath</h2>
-                    <p class="dham-deity">The Seat of Lord Vishnu</p>
-                    <p class="dham-description">
-                        The final destination is a place of serene majesty. Guarded by twin peaks, the vibrant temple of Badrinath represents the culmination of the yatra—a place of peace, clarity, and spiritual fulfillment.
-                    </p>
-                </div>
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-        <p>A digital reflection of a sacred path. Crafted with focus and reverence.</p>
-    </footer>
-
 </body>
 </html>

@@ -1,249 +1,134 @@
 :root {
-    --celestial-blue: #B5D6E6; /* Lighter blue */
-    --misty-rose: #FADADD; /* Soft pink */
-    --serene-green: #DDEFE0; /* Pale green */
-    --lavender-blush: #F3E8F3; /* Gentle lavender */
-    --powder-white: #FCFCFC; /* Off-white */
+    --bg-color: #f4f1ea; /* Warm, paper-like off-white */
+    --text-color: #2c2c2c; /* Soft charcoal, not black */
+    --accent-color: #5d5d5d; /* Muted grey */
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+}
 
-    /* Semantic color names */
-    --background-color: var(--powder-white);
-    --text-color: #6c757d; /* Softer grey */
-    --accent-color: var(--celestial-blue);
-    --header-bg-color: var(--misty-rose);
-    --nav-active-color: var(--serene-green);
-    --link-color: var(--celestial-blue);
-    --link-hover-color: var(--misty-rose);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Lato', sans-serif;
-    background-color: var(--background-color);
+    background-color: var(--bg-color);
     color: var(--text-color);
-    margin: 0;
-    padding: 0;
-    line-height: 1.8;
+    font-family: var(--font-serif);
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 400; /* Lighter weight */
-    margin-top: 0;
-    color: #495057; /* Darker grey */
-}
-
-/* --- Hero Section --- */
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(180deg, var(--misty-rose) 0%, var(--lavender-blush) 100%);
-    background-size: 150% 150%;
-    background-position: center;
-    color: var(--text-color);
-    animation: slow-pan 20s ease-in-out infinite alternate;
-}
-
-@keyframes slow-pan {
-    from {
-        background-position: 0% 0%;
-    }
-    to {
-        background-position: 100% 100%;
-    }
-}
-
-.scroll-indicator {
-    position: absolute;
-    bottom: 20px;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.7;
-    }
-    50% {
-        transform: scale(1.2);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0.7;
-    }
-}
-
-.scroll-indicator span {
-    display: block;
-    width: 2px;
-    height: 30px;
-    background-color: var(--text-color);
-}
-
-.hero-title {
-    font-size: 5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    letter-spacing: 2px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-}
-
-/* --- Footer --- */
-footer {
-    padding: 2rem;
-    text-align: center;
-    background-color: var(--lavender-blush);
-    color: var(--text-color);
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-}
-
-footer.visible {
-    opacity: 1;
-}
-
-/* --- Navigation Enhancements --- */
-.spiritual-compass {
-    position: fixed;
-    right: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    z-index: 100;
-}
-
-.compass-indicator {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: var(--serene-green);
-    border: 2px solid var(--celestial-blue);
-    transition: top 0.5s ease-in-out;
-    top: 0;
-    left: 0;
-}
-
-.compass-point {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: var(--misty-rose);
-    border: 2px solid var(--serene-green);
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+.scroll-container {
+    width: 100%;
     position: relative;
 }
 
-.compass-point:hover {
-    background-color: var(--serene-green);
-    transform: scale(1.2);
-}
-
-.compass-point.active {
-    background-color: var(--serene-green);
-    border-color: var(--celestial-blue);
-    transform: scale(1.5);
-}
-
-.compass-point::after {
-    content: attr(data-name);
-    position: absolute;
-    right: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--powder-white);
-    color: var(--text-color);
-    padding: 5px 10px;
-    border-radius: 5px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.compass-point:hover::after {
-    opacity: 1;
-    visibility: visible;
-    right: 40px;
-}
-
-.dham-content {
+.chapter {
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    gap: 4rem;
-}
-
-.dham-image img {
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease-in-out;
-}
-
-.dham-image img:hover {
-    transform: scale(1.05);
-}
-
-.dham-title {
-    font-size: 3rem;
-    color: var(--accent-color);
-    margin-bottom: 0.5rem;
-}
-
-.dham-deity {
-    font-size: 1.2rem;
-    font-style: italic;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-}
-
-.dham-description {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    max-height: 0;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
     overflow: hidden;
-    transition: max-height 0.5s ease-in-out;
 }
 
-.dham-content:hover .dham-description {
-    max-height: 200px; /* Adjust as needed */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%; /* Taller for parallax */
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Hidden initially for bloom effect */
+    transition: opacity 2s ease-out, transform 0.1s linear; /* Smooth fade in, JS handles parallax transform */
+    z-index: -1;
 }
 
-/* --- Dham Section Enhancements --- */
-.dham-section {
-    padding: 6rem 2rem;
+/* Overlay to ensure text readability without harsh shadows */
+.chapter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(244, 241, 234, 0.2), rgba(244, 241, 234, 0.8));
+    z-index: 0;
+}
+
+.content-wrapper {
+    z-index: 1;
+    max-width: 600px;
+    text-align: center;
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease-in-out;
-    background-color: var(--powder-white);
-    margin: 2rem auto;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    max-width: 1200px;
+    transition: opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1), transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.dham-section:hover {
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-    transform: translateY(20px);
-}
-
-.dham-section.visible {
+.chapter.visible .content-wrapper {
     opacity: 1;
     transform: translateY(0);
 }
 
-.hero-subtitle {
+.chapter.visible .background-image {
+    opacity: 0.6; /* Soft visibility */
+    /* Add a subtle bloom/blur effect */
+    filter: blur(0px);
+    animation: bloom 3s ease-out forwards;
+}
+
+@keyframes bloom {
+    0% { filter: blur(10px) brightness(1.2); opacity: 0; }
+    100% { filter: blur(0px) brightness(1); opacity: 0.6; }
+}
+
+.prose {
     font-size: 1.5rem;
-    margin-top: 0;
-    max-width: 700px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    color: var(--text-color);
+    letter-spacing: 0.02em;
+}
+
+.title, .location {
+    font-size: 3rem;
     font-weight: 300;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-top: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem; /* Small, remembered, not announced */
+}
+
+.title {
+    font-size: 1rem;
+}
+
+.location {
+    font-size: 0.85rem;
+}
+
+/* Footer specific */
+.footer {
+    min-height: 50vh;
+    background: transparent;
+}
+
+.footer .prose {
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .prose {
+        font-size: 1.25rem;
+    }
 }
