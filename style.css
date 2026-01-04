@@ -115,6 +115,25 @@ body {
     font-size: 0.85rem;
 }
 
+/* Hero specific */
+.hero-title {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.hero-subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
 /* Footer specific */
 .footer {
     min-height: 50vh;
@@ -164,22 +183,28 @@ body {
     opacity: 1;
     transform: scale(1.5);
 }
+
+/* Localized Background Images */
+#hero .background-image {
+    background-image: url('images/hero.jpg');
+}
+
 #arrival .background-image {
-    background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80');
+    background-image: url('images/hero.jpg');
 }
 
 #yamunotri .background-image {
-    background-image: url('https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&q=80');
+    background-image: url('images/yamunotri.jpg');
 }
 
 #gangotri .background-image {
-    background-image: url('https://images.unsplash.com/photo-1593181625554-1d3639d57a43?auto=format&fit=crop&q=80');
+    background-image: url('images/gangotri.jpg');
 }
 
 #kedarnath .background-image {
-    background-image: url('https://images.unsplash.com/photo-1598555898852-5a242857022d?auto=format&fit=crop&q=80');
+    background-image: url('images/kedarnath.jpg');
 }
 
 #badrinath .background-image {
-    background-image: url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&q=80');
+    background-image: url('images/badrinath.jpg');
 }
