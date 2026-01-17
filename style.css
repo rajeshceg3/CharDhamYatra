@@ -278,7 +278,7 @@ body {
 }
 
 .legend-content.expanded {
-    max-height: 300px;
+    max-height: 800px;
     opacity: 1;
 }
 
