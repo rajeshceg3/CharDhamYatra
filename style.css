@@ -208,3 +208,92 @@ body {
 #badrinath .background-image {
     background-image: url('images/badrinath.jpg');
 }
+
+/* Scroll Hint */
+.scroll-hint {
+    margin-top: 3rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    opacity: 0.7;
+    animation: fadeBounce 2s infinite;
+}
+
+@keyframes fadeBounce {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50% { opacity: 0.8; transform: translateY(5px); }
+}
+
+/* Chapter Stats */
+.chapter-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.stat-divider {
+    opacity: 0.5;
+}
+
+/* Chapter Legend */
+.chapter-legend {
+    margin-top: 2rem;
+}
+
+.legend-toggle {
+    background: none;
+    border: none;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-color);
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+}
+
+.legend-toggle:hover {
+    opacity: 1;
+    border-bottom-color: var(--accent-color);
+}
+
+.legend-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    margin-top: 1rem;
+}
+
+.legend-content.expanded {
+    max-height: 300px;
+    opacity: 1;
+}
+
+.legend-content p {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Footer Copyright */
+.copyright {
+    margin-top: 3rem;
+    font-family: var(--font-sans);
+    opacity: 0.5;
+}

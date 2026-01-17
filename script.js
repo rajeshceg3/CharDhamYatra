@@ -69,4 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Legend Toggle
+    const legendToggles = document.querySelectorAll('.legend-toggle');
+    legendToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const content = toggle.nextElementSibling;
+            const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+            toggle.setAttribute('aria-expanded', !isExpanded);
+            content.classList.toggle('expanded');
+        });
+    });
 });
