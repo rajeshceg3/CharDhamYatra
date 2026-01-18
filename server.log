@@ -1,8 +1,0 @@
-127.0.0.1 - - [16/Jan/2026 21:33:18] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [16/Jan/2026 21:33:18] "GET /style.css HTTP/1.1" 200 -
-127.0.0.1 - - [16/Jan/2026 21:33:18] "GET /script.js HTTP/1.1" 200 -
-127.0.0.1 - - [16/Jan/2026 21:33:19] "GET /images/gangotri.jpg HTTP/1.1" 200 -
-127.0.0.1 - - [16/Jan/2026 21:33:19] "GET /images/yamunotri.jpg HTTP/1.1" 200 -
-127.0.0.1 - - [16/Jan/2026 21:33:19] "GET /images/kedarnath.jpg HTTP/1.1" 200 -
-127.0.0.1 - - [16/Jan/2026 21:33:19] "GET /images/hero.jpg HTTP/1.1" 200 -
-127.0.0.1 - - [16/Jan/2026 21:33:19] "GET /images/badrinath.jpg HTTP/1.1" 200 -

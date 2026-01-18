@@ -278,7 +278,7 @@ body {
 }
 
 .legend-content.expanded {
-    max-height: 800px;
+    max-height: 2000px;
     opacity: 1;
 }
 
@@ -288,7 +288,35 @@ body {
     line-height: 1.5;
     color: var(--text-color);
     max-width: 500px;
-    margin: 0 auto;
+    margin: 0 auto 1rem auto;
+}
+
+.legend-content ul {
+    list-style: none;
+    padding: 0;
+    max-width: 500px;
+    margin: 0 auto 1rem auto;
+}
+
+.legend-content li {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.legend-content li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+.legend-content strong {
+    font-weight: 600;
 }
 
 /* Footer Copyright */
