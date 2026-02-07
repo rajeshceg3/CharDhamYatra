@@ -4,17 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.3
+        rootMargin: '0px 0px -10% 0px',
+        threshold: 0.15
     };
 
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-            } else {
-                // Optional: remove class to re-trigger animation on scroll up
-                // entry.target.classList.remove('visible');
+                // observer.unobserve(entry.target); // Keep observing to allow re-trigger? No, CSS handles it.
+                // If we want it to run once:
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -53,22 +53,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Parallax Effect
-    window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY;
+    let ticking = false;
 
+    function updateParallax() {
         chapters.forEach(chapter => {
             const bg = chapter.querySelector('.background-image');
             if (bg) {
-                const speed = 0.2;
+                const speed = 0.15; // Slower for a heavier, more cinematic feel
                 const rect = chapter.getBoundingClientRect();
                 // Only animate if visible or close to viewport
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                     const offset = (window.innerHeight - rect.top) * speed;
-                    bg.style.transform = `translateY(${offset}px)`;
+                    bg.style.transform = `translate3d(0, ${offset}px, 0)`;
                 }
             }
         });
-    });
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }, { passive: true });
 
     // Legend Toggle
     const legendToggles = document.querySelectorAll('.legend-toggle');

@@ -21,6 +21,19 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
 .scroll-container {
     width: 100%;
     position: relative;
@@ -45,7 +58,8 @@ body {
     background-size: cover;
     background-position: center;
     opacity: 0; /* Hidden initially for bloom effect */
-    transition: opacity 2s ease-out, transform 0.1s linear; /* Smooth fade in, JS handles parallax transform */
+    transition: opacity 2.5s cubic-bezier(0.22, 1, 0.36, 1); /* Ultra-smooth fade in */
+    will-change: transform, opacity;
     z-index: -1;
 }
 
@@ -67,7 +81,8 @@ body {
     text-align: center;
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1), transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
 }
 
 .chapter.visible .content-wrapper {
@@ -79,21 +94,21 @@ body {
     opacity: 0.6; /* Soft visibility */
     /* Add a subtle bloom/blur effect */
     filter: blur(0px);
-    animation: bloom 3s ease-out forwards;
+    animation: bloom 3.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes bloom {
-    0% { filter: blur(10px) brightness(1.2); opacity: 0; }
+    0% { filter: blur(15px) brightness(1.1); opacity: 0; }
     100% { filter: blur(0px) brightness(1); opacity: 0.6; }
 }
 
 .prose {
     font-size: 1.5rem;
-    line-height: 1.6;
+    line-height: 1.8; /* Increased breathing room */
     margin-bottom: 2rem;
     font-weight: 400;
     color: var(--text-color);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em; /* Slightly tighter for better reading flow */
 }
 
 .title, .location {
@@ -118,11 +133,12 @@ body {
 /* Hero specific */
 .hero-title {
     font-family: var(--font-serif);
-    font-size: 4rem;
+    font-size: 5rem; /* More impact */
     font-weight: 300;
     color: var(--text-color);
     margin-bottom: 1rem;
-    letter-spacing: 0.05em;
+    letter-spacing: -0.02em; /* Tighter for display size */
+    line-height: 1.1;
 }
 
 .hero-subtitle {
@@ -167,21 +183,58 @@ body {
 .compass-point {
     width: 6px;
     height: 6px;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    display: flex; /* Ensure centering */
+    align-items: center;
+    justify-content: center;
+}
+
+/* The Dot */
+.compass-point::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
     background-color: var(--accent-color);
     border-radius: 50%;
     opacity: 0.3;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.compass-point:hover {
+/* The Label */
+.compass-point::after {
+    content: attr(aria-label);
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) translateX(10px);
+    opacity: 0;
+    white-space: nowrap;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--text-color);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.compass-point:hover::before {
     opacity: 0.7;
 }
 
-.compass-point.active {
+.compass-point.active::before {
     opacity: 1;
     transform: scale(1.5);
+}
+
+.compass-point:hover::after,
+.compass-point.active::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
 }
 
 /* Localized Background Images */
@@ -259,7 +312,7 @@ body {
     color: var(--text-color);
     cursor: pointer;
     opacity: 0.7;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-bottom-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     padding-bottom: 2px;
     border-bottom: 1px solid transparent;
 }
@@ -273,7 +326,7 @@ body {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    transition: max-height 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
     margin-top: 1rem;
 }
 
@@ -324,4 +377,23 @@ body {
     margin-top: 3rem;
     font-family: var(--font-sans);
     opacity: 0.5;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 3px;
+    opacity: 0.5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-color);
 }
