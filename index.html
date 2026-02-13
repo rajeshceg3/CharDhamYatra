@@ -31,7 +31,8 @@
             <div class="content-wrapper">
                 <h1 class="hero-title">Char Dham Yatra</h1>
                 <p class="hero-subtitle">A journey not of miles, but of transcendence. Four abodes, one path to the self, etched into the silence of the Himalayas.</p>
-                <div class="scroll-hint">Begin the Journey</div>
+                <button id="start-tour-btn" class="tour-start-btn">Begin the Journey</button>
+                <div class="scroll-hint">Scroll to Explore</div>
             </div>
             <div class="background-image"></div>
             <div class="scroll-indicator"></div>
@@ -212,7 +213,7 @@
             <div class="background-image"></div>
         </section>
 
-        <footer class="chapter footer">
+        <footer class="chapter footer" id="footer">
             <div class="content-wrapper">
                 <p class="prose">You leave, but a part of you remains. Quiet. Still. The mountains have etched their silence into your bones.</p>
                 <div class="copyright">
@@ -220,6 +221,11 @@
                 </div>
             </div>
         </footer>
+    </div>
+    <div class="tour-controls">
+        <div class="tour-progress"></div>
+        <button id="tour-next-btn" class="tour-btn">Next</button>
+        <button id="tour-exit-btn" class="tour-exit" aria-label="Exit Tour">×</button>
     </div>
 </body>
 </html>

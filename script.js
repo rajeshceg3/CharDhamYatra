@@ -90,3 +90,85 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Tour Logic
+    const tourSteps = ['hero', 'arrival', 'yamunotri', 'gangotri', 'kedarnath', 'badrinath', 'footer'];
+    let currentStep = 0;
+
+    const startBtn = document.getElementById('start-tour-btn');
+    const nextBtn = document.getElementById('tour-next-btn');
+    const exitBtn = document.getElementById('tour-exit-btn');
+    const tourControls = document.querySelector('.tour-controls');
+    const tourProgress = document.querySelector('.tour-progress');
+
+    function updateTourUI() {
+        if (!tourProgress || !nextBtn) return;
+
+        // Use +1 for 1-based index for display
+        tourProgress.textContent = `Step ${currentStep + 1} of ${tourSteps.length}`;
+
+        if (currentStep >= tourSteps.length - 1) {
+            nextBtn.textContent = 'Finish Journey';
+        } else {
+            // Get the name of the next section for better context
+            const nextId = tourSteps[currentStep + 1];
+            // Simple mapping or just "Next: [Name]"
+            const nameMap = {
+                'hero': 'Start',
+                'arrival': 'Arrival',
+                'yamunotri': 'Yamunotri',
+                'gangotri': 'Gangotri',
+                'kedarnath': 'Kedarnath',
+                'badrinath': 'Badrinath',
+                'footer': 'Conclusion'
+            };
+            const nextName = nameMap[nextId] || 'Next Step';
+            nextBtn.textContent = `Proceed to ${nextName}`;
+        }
+    }
+
+    function startTour() {
+        document.body.classList.add('tour-active');
+        tourControls.classList.add('visible');
+        currentStep = 0;
+        // Immediately move to the first actual content section (Arrival)
+        nextStep();
+    }
+
+    function nextStep() {
+        currentStep++;
+
+        if (currentStep >= tourSteps.length) {
+            endTour();
+            return;
+        }
+
+        const targetId = tourSteps[currentStep];
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        updateTourUI();
+    }
+
+    function endTour() {
+        document.body.classList.remove('tour-active');
+        tourControls.classList.remove('visible');
+        currentStep = 0;
+    }
+
+    if (startBtn) {
+        startBtn.addEventListener('click', startTour);
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextStep);
+    }
+
+    if (exitBtn) {
+        exitBtn.addEventListener('click', endTour);
+    }
+});
