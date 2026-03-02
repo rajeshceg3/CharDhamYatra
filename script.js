@@ -57,21 +57,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateParallax() {
         chapters.forEach(chapter => {
-            const bg = chapter.querySelector('.background-image');
-            if (bg) {
+            const wrapper = chapter.querySelector('.parallax-wrapper');
+            if (wrapper) {
                 const speed = 0.15; // Slower for a heavier, more cinematic feel
                 const rect = chapter.getBoundingClientRect();
                 // Only animate if visible or close to viewport
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                     const offset = (window.innerHeight - rect.top) * speed;
-                    bg.style.transform = `translate3d(0, ${offset}px, 0)`;
+                    wrapper.style.transform = `translate3d(0, ${offset}px, 0)`;
                 }
             }
         });
         ticking = false;
     }
 
+    const ambientScrollIndicator = document.querySelector('.scroll-progress');
+
     window.addEventListener('scroll', () => {
+        if (ambientScrollIndicator) {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            ambientScrollIndicator.style.width = `${scrollPercent}%`;
+        }
+
         if (!ticking) {
             window.requestAnimationFrame(updateParallax);
             ticking = true;
