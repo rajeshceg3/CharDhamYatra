@@ -8,7 +8,215 @@ window.addEventListener('load', () => {
     }
 });
 
+class SoundEngine {
+    constructor() {
+        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.connect(this.ctx.destination);
+        this.masterGain.gain.value = 0; // Starts muted
+        this.isPlaying = false;
+
+        // Procedural generators
+        this.noiseGenerator = null;
+        this.noiseFilter = null;
+        this.droneOscillators = [];
+        this.droneGain = this.ctx.createGain();
+        this.droneGain.connect(this.masterGain);
+        this.droneGain.gain.value = 0;
+
+        this.noiseGain = this.ctx.createGain();
+        this.noiseGain.connect(this.masterGain);
+        this.noiseGain.gain.value = 0;
+
+        this.initProceduralAudio();
+    }
+
+    initProceduralAudio() {
+        // 1. Noise Generator for Wind/Water
+        const bufferSize = this.ctx.sampleRate * 2; // 2 seconds of noise
+        const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+            output[i] = Math.random() * 2 - 1;
+        }
+
+        this.noiseGenerator = this.ctx.createBufferSource();
+        this.noiseGenerator.buffer = noiseBuffer;
+        this.noiseGenerator.loop = true;
+
+        this.noiseFilter = this.ctx.createBiquadFilter();
+        this.noiseFilter.type = 'lowpass';
+        this.noiseFilter.frequency.value = 400; // Start with low, rumbling frequency
+
+        this.noiseGenerator.connect(this.noiseFilter);
+        this.noiseFilter.connect(this.noiseGain);
+
+        this.noiseGenerator.start();
+
+        // 2. Drone Generators (Mystical hum)
+        const freqs = [108, 111, 216]; // Ohm-related frequencies roughly
+        freqs.forEach(freq => {
+            const osc = this.ctx.createOscillator();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+
+            const panner = this.ctx.createStereoPanner();
+            panner.pan.value = (Math.random() * 2 - 1) * 0.5; // Spread slightly
+
+            const oscGain = this.ctx.createGain();
+            oscGain.gain.value = 0.1 / freqs.length; // Balance volume
+
+            osc.connect(panner);
+            panner.connect(oscGain);
+            oscGain.connect(this.droneGain);
+
+            osc.start();
+            this.droneOscillators.push(osc);
+        });
+    }
+
+    toggle() {
+        if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+
+        this.isPlaying = !this.isPlaying;
+
+        // Fade in/out
+        const now = this.ctx.currentTime;
+        this.masterGain.gain.cancelScheduledValues(now);
+        if (this.isPlaying) {
+            this.masterGain.gain.linearRampToValueAtTime(1, now + 1); // 1 sec fade in
+        } else {
+            this.masterGain.gain.linearRampToValueAtTime(0, now + 1); // 1 sec fade out
+        }
+        return this.isPlaying;
+    }
+
+    setChapterAudio(chapterId) {
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+        this.noiseFilter.frequency.cancelScheduledValues(now);
+        this.noiseFilter.Q.cancelScheduledValues(now);
+        this.droneGain.gain.cancelScheduledValues(now);
+        this.noiseGain.gain.cancelScheduledValues(now);
+
+        const fadeTime = 2; // Crossfade duration
+
+        switch (chapterId) {
+            case 'hero':
+            case 'arrival':
+            case 'footer':
+                // Focus on mystical drone, very subtle wind
+                this.droneGain.gain.linearRampToValueAtTime(0.5, now + fadeTime);
+                this.noiseGain.gain.linearRampToValueAtTime(0.1, now + fadeTime);
+                this.noiseFilter.frequency.linearRampToValueAtTime(200, now + fadeTime); // Low rumble
+                break;
+            case 'yamunotri':
+            case 'kedarnath':
+                // High altitude: High, biting wind
+                this.droneGain.gain.linearRampToValueAtTime(0.1, now + fadeTime);
+                this.noiseGain.gain.linearRampToValueAtTime(0.6, now + fadeTime);
+                this.noiseFilter.type = 'bandpass';
+                this.noiseFilter.frequency.linearRampToValueAtTime(800, now + fadeTime);
+                this.noiseFilter.Q.linearRampToValueAtTime(1.5, now + fadeTime);
+                break;
+            case 'gangotri':
+            case 'badrinath':
+                // River/Water: Deeper, roaring white noise
+                this.droneGain.gain.linearRampToValueAtTime(0.2, now + fadeTime);
+                this.noiseGain.gain.linearRampToValueAtTime(0.7, now + fadeTime);
+                this.noiseFilter.type = 'lowpass';
+                this.noiseFilter.frequency.linearRampToValueAtTime(600, now + fadeTime);
+                this.noiseFilter.Q.linearRampToValueAtTime(0.5, now + fadeTime);
+                break;
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Custom Cursor Logic (Only for non-touch devices)
+    const customCursor = document.getElementById('custom-cursor');
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+
+    if (customCursor && !isTouchDevice) {
+        let cursorX = window.innerWidth / 2;
+        let cursorY = window.innerHeight / 2;
+        let targetX = cursorX;
+        let targetY = cursorY;
+
+        window.addEventListener('mousemove', (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
+        });
+
+        function updateCursor() {
+            // Smooth interpolation
+            cursorX += (targetX - cursorX) * 0.2;
+            cursorY += (targetY - cursorY) * 0.2;
+
+            // Check if we have hover class, only translate to not override scale via JS
+            const isHover = customCursor.classList.contains('hover');
+
+            // Remove transform from CSS transitions and apply directly here
+            if (isHover) {
+                customCursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) scale(2.5) translate(-20%, -20%)`;
+            } else {
+                customCursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+            }
+            requestAnimationFrame(updateCursor);
+        }
+        requestAnimationFrame(updateCursor);
+    } else if (customCursor && isTouchDevice) {
+        customCursor.style.display = 'none';
+    }
+
+    // Sound Engine Initialization
+    let soundEngine = null;
+    const soundToggle = document.getElementById('sound-toggle');
+    const soundIconOn = soundToggle?.querySelector('.sound-icon-on');
+    const soundIconOff = soundToggle?.querySelector('.sound-icon-off');
+
+    if (soundToggle) {
+        soundToggle.addEventListener('click', () => {
+            if (!soundEngine) {
+                soundEngine = new SoundEngine();
+            }
+
+            const isPlaying = soundEngine.toggle();
+            soundToggle.setAttribute('aria-pressed', isPlaying);
+
+            if (isPlaying) {
+                if (soundIconOn) soundIconOn.style.display = 'block';
+                if (soundIconOff) soundIconOff.style.display = 'none';
+
+                // Trigger current chapter audio immediately
+                const activeNav = document.querySelector('.compass-point.active');
+                if (activeNav) {
+                    const id = activeNav.getAttribute('href').substring(1);
+                    soundEngine.setChapterAudio(id);
+                } else {
+                    soundEngine.setChapterAudio('hero');
+                }
+            } else {
+                if (soundIconOn) soundIconOn.style.display = 'none';
+                if (soundIconOff) soundIconOff.style.display = 'block';
+            }
+        });
+    }
+
+    // Add hover states to interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, .compass-point, .legend-toggle');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            if (customCursor) customCursor.classList.add('hover');
+        });
+        el.addEventListener('mouseleave', () => {
+            if (customCursor) customCursor.classList.remove('hover');
+        });
+    });
+
     const chapters = document.querySelectorAll('.chapter');
     const navLinks = document.querySelectorAll('.compass-point');
 
@@ -69,6 +277,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             link.classList.add('active');
                         }
                     });
+
+                    // Update ambient audio if playing
+                    if (soundEngine && soundEngine.isPlaying) {
+                        soundEngine.setChapterAudio(id);
+                    }
                 }
             });
         }, navObserverOptions);
