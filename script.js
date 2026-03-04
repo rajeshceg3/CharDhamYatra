@@ -1,6 +1,32 @@
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+            preloader.remove();
+        }, 1500); // Remove after transition finishes
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const chapters = document.querySelectorAll('.chapter');
     const navLinks = document.querySelectorAll('.compass-point');
+
+    // Refined Typography Animations
+    const titlesAndLocations = document.querySelectorAll('.title, .location');
+    titlesAndLocations.forEach(el => {
+        const text = el.textContent;
+        el.textContent = ''; // Clear existing
+        const words = text.split(' ');
+        words.forEach((word, index) => {
+            const span = document.createElement('span');
+            span.textContent = word + (index < words.length - 1 ? ' ' : '');
+            // Limit delay class to 20 to avoid missing CSS classes
+            const delayClass = `delay-${Math.min(index + 1, 20)}`;
+            span.className = `split-word ${delayClass}`;
+            el.appendChild(span);
+        });
+    });
 
     const observerOptions = {
         root: null,
@@ -54,6 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Parallax Effect
     let ticking = false;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        // Normalize mouse coordinates from -1 to 1
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    });
 
     function updateParallax() {
         chapters.forEach(chapter => {
@@ -64,7 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Only animate if visible or close to viewport
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                     const offset = (window.innerHeight - rect.top) * speed;
-                    wrapper.style.transform = `translate3d(0, ${offset}px, 0)`;
+                    const mouseOffsetX = mouseX * 15;
+                    const mouseOffsetY = mouseY * 15;
+                    wrapper.style.transform = `translate3d(${mouseOffsetX}px, ${offset + mouseOffsetY}px, 0)`;
                 }
             }
         });

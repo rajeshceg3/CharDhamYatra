@@ -260,6 +260,138 @@ body::after {
     transform: translateY(-50%) translateX(0);
 }
 
+/* Staggered Text Reveal */
+.split-word {
+    display: inline-block;
+    white-space: pre;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chapter.visible .split-word {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.15s; }
+.delay-2 { transition-delay: 0.20s; }
+.delay-3 { transition-delay: 0.25s; }
+.delay-4 { transition-delay: 0.30s; }
+.delay-5 { transition-delay: 0.35s; }
+.delay-6 { transition-delay: 0.40s; }
+.delay-7 { transition-delay: 0.45s; }
+.delay-8 { transition-delay: 0.50s; }
+.delay-9 { transition-delay: 0.55s; }
+.delay-10 { transition-delay: 0.60s; }
+.delay-11 { transition-delay: 0.65s; }
+.delay-12 { transition-delay: 0.70s; }
+.delay-13 { transition-delay: 0.75s; }
+.delay-14 { transition-delay: 0.80s; }
+.delay-15 { transition-delay: 0.85s; }
+.delay-16 { transition-delay: 0.90s; }
+.delay-17 { transition-delay: 0.95s; }
+.delay-18 { transition-delay: 1.00s; }
+.delay-19 { transition-delay: 1.05s; }
+.delay-20 { transition-delay: 1.10s; }
+
+/* Ambient Atmospheric Effects */
+
+/* Mist Effect */
+.mist-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.mist {
+    position: absolute;
+    bottom: -20vh;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+    filter: blur(20px);
+    opacity: 0;
+    animation: mistRise 20s infinite linear;
+    animation-play-state: paused;
+}
+
+.chapter.visible .mist {
+    animation-play-state: running;
+}
+
+.mist-1 { left: -10%; animation-duration: 25s; animation-delay: 0s; }
+.mist-2 { left: -50%; animation-duration: 35s; animation-delay: -10s; background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 60%); }
+.mist-3 { left: -30%; animation-duration: 28s; animation-delay: -5s; background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 80%); }
+
+@keyframes mistRise {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 0.6; }
+    80% { opacity: 0.6; }
+    100% { transform: translateY(-30vh) scale(1.5); opacity: 0; }
+}
+
+/* Snow Effect */
+.snow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.snow-particle {
+    position: absolute;
+    top: -10px;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+    filter: blur(1px);
+    animation: fall linear infinite;
+    animation-play-state: paused;
+}
+
+.chapter.visible .snow-particle {
+    animation-play-state: running;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(110vh) translateX(20px); opacity: 0; }
+}
+
+.particle-1 { left: 49.97%; width: 4.85px; height: 4.85px; animation-duration: 18.91s; animation-delay: -9.30s; }
+.particle-2 { left: 6.17%; width: 5.73px; height: 5.73px; animation-duration: 10.44s; animation-delay: -0.54s; }
+.particle-3 { left: 90.19%; width: 3.24px; height: 3.24px; animation-duration: 18.19s; animation-delay: -17.79s; }
+.particle-4 { left: 14.62%; width: 3.77px; height: 3.77px; animation-duration: 19.01s; animation-delay: -1.15s; }
+.particle-5 { left: 72.16%; width: 3.76px; height: 3.76px; animation-duration: 17.64s; animation-delay: -17.35s; }
+.particle-6 { left: 55.73%; width: 5.27px; height: 5.27px; animation-duration: 11.99s; animation-delay: -2.66s; }
+.particle-7 { left: 1.88%; width: 2.12px; height: 2.12px; animation-duration: 15.71s; animation-delay: -3.55s; }
+.particle-8 { left: 97.06%; width: 4.99px; height: 4.99px; animation-duration: 18.85s; animation-delay: -17.46s; }
+.particle-9 { left: 50.43%; width: 2.20px; height: 2.20px; animation-duration: 19.40s; animation-delay: -9.65s; }
+.particle-10 { left: 82.18%; width: 2.90px; height: 2.90px; animation-duration: 19.09s; animation-delay: -14.97s; }
+.particle-11 { left: 41.57%; width: 4.20px; height: 4.20px; animation-duration: 17.47s; animation-delay: -14.87s; }
+.particle-12 { left: 3.88%; width: 2.17px; height: 2.17px; animation-duration: 15.54s; animation-delay: -9.58s; }
+.particle-13 { left: 2.44%; width: 3.83px; height: 3.83px; animation-duration: 17.47s; animation-delay: -5.31s; }
+.particle-14 { left: 56.78%; width: 5.09px; height: 5.09px; animation-duration: 12.19s; animation-delay: -2.25s; }
+.particle-15 { left: 70.34%; width: 4.04px; height: 4.04px; animation-duration: 16.34s; animation-delay: -14.53s; }
+.particle-16 { left: 14.98%; width: 3.13px; height: 3.13px; animation-duration: 16.57s; animation-delay: -12.86s; }
+.particle-17 { left: 0.36%; width: 3.18px; height: 3.18px; animation-duration: 10.52s; animation-delay: -9.63s; }
+.particle-18 { left: 99.34%; width: 3.13px; height: 3.13px; animation-duration: 10.05s; animation-delay: -13.14s; }
+.particle-19 { left: 79.97%; width: 4.08px; height: 4.08px; animation-duration: 12.01s; animation-delay: -11.23s; }
+.particle-20 { left: 67.39%; width: 3.60px; height: 3.60px; animation-duration: 14.43s; animation-delay: -6.22s; }
+
 /* Localized Background Images */
 #hero .background-image {
     background-image: url('images/hero.jpg');
@@ -295,6 +427,41 @@ body::after {
     background-color: var(--accent-color);
     z-index: 1000;
     transition: width 0.1s ease;
+}
+
+/* Preloader */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#preloader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preloader-text {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--text-color);
+    letter-spacing: 0.1em;
+    font-style: italic;
+    opacity: 0.7;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
 }
 
 /* Scroll Hint */
