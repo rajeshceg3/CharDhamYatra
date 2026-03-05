@@ -456,6 +456,96 @@ body.tour-active .sound-toggle {
 .particle-19 { left: 79.97%; width: 4.08px; height: 4.08px; animation-duration: 12.01s; animation-delay: -11.23s; }
 .particle-20 { left: 67.39%; width: 3.60px; height: 3.60px; animation-duration: 14.43s; animation-delay: -6.22s; }
 
+/* River Glint Effect */
+.glint-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.glint {
+    position: absolute;
+    bottom: -10px;
+    background-color: #a0d2eb;
+    border-radius: 50%;
+    opacity: 0.6;
+    filter: blur(2px);
+    animation: floatUp linear infinite;
+    animation-play-state: paused;
+}
+
+.chapter.visible .glint {
+    animation-play-state: running;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(10px) translateX(0) scale(0.5); opacity: 0; }
+    30% { opacity: 0.6; transform: translateY(-30vh) translateX(10px) scale(1); }
+    70% { opacity: 0.6; transform: translateY(-70vh) translateX(-10px) scale(1.2); }
+    100% { transform: translateY(-110vh) translateX(0) scale(0.8); opacity: 0; }
+}
+
+.glint-1 { left: 10%; width: 6px; height: 6px; animation-duration: 15s; animation-delay: 0s; }
+.glint-2 { left: 25%; width: 4px; height: 4px; animation-duration: 12s; animation-delay: 2s; }
+.glint-3 { left: 40%; width: 8px; height: 8px; animation-duration: 18s; animation-delay: 1s; }
+.glint-4 { left: 55%; width: 5px; height: 5px; animation-duration: 14s; animation-delay: 4s; }
+.glint-5 { left: 70%; width: 7px; height: 7px; animation-duration: 16s; animation-delay: 3s; }
+.glint-6 { left: 85%; width: 3px; height: 3px; animation-duration: 11s; animation-delay: 5s; }
+.glint-7 { left: 15%; width: 6px; height: 6px; animation-duration: 17s; animation-delay: 6s; }
+.glint-8 { left: 35%; width: 5px; height: 5px; animation-duration: 13s; animation-delay: 7s; }
+.glint-9 { left: 65%; width: 8px; height: 8px; animation-duration: 19s; animation-delay: 8s; }
+.glint-10 { left: 80%; width: 4px; height: 4px; animation-duration: 14s; animation-delay: 9s; }
+
+/* Light Mote Effect */
+.mote-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.mote {
+    position: absolute;
+    top: -10px;
+    background-color: #ffd700;
+    border-radius: 50%;
+    opacity: 0.5;
+    filter: blur(3px);
+    animation: drift linear infinite alternate;
+    animation-play-state: paused;
+}
+
+.chapter.visible .mote {
+    animation-play-state: running;
+}
+
+@keyframes drift {
+    0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+    20% { opacity: 0.5; }
+    80% { opacity: 0.5; }
+    100% { transform: translateY(100vh) translateX(50px) scale(1.2); opacity: 0; }
+}
+
+.mote-1 { left: 5%; width: 8px; height: 8px; animation-duration: 25s; animation-delay: 0s; }
+.mote-2 { left: 15%; width: 5px; height: 5px; animation-duration: 30s; animation-delay: -5s; }
+.mote-3 { left: 25%; width: 10px; height: 10px; animation-duration: 22s; animation-delay: -10s; }
+.mote-4 { left: 35%; width: 6px; height: 6px; animation-duration: 28s; animation-delay: -2s; }
+.mote-5 { left: 45%; width: 12px; height: 12px; animation-duration: 35s; animation-delay: -15s; }
+.mote-6 { left: 55%; width: 7px; height: 7px; animation-duration: 24s; animation-delay: -7s; }
+.mote-7 { left: 65%; width: 9px; height: 9px; animation-duration: 29s; animation-delay: -3s; }
+.mote-8 { left: 75%; width: 4px; height: 4px; animation-duration: 21s; animation-delay: -12s; }
+.mote-9 { left: 85%; width: 11px; height: 11px; animation-duration: 33s; animation-delay: -8s; }
+.mote-10 { left: 95%; width: 6px; height: 6px; animation-duration: 26s; animation-delay: -1s; }
+
 /* Localized Background Images */
 #hero .background-image {
     background-image: url('images/hero.jpg');
